@@ -1,4 +1,5 @@
-﻿using FC.Codeflix.Catalog.Domain.Exceptions;
+﻿using FC.Codeflix.Catalog.Domain.Entity;
+using FC.Codeflix.Catalog.Domain.Exceptions;
 using System.Xml.Linq;
 using DomainEntity = FC.Codeflix.Catalog.Domain.Entity;
 
@@ -208,5 +209,16 @@ public class CategoryTest
 		Action action = () => category.Update(invalidName);
 		var exception = Assert.Throws<EntityValidationException>(action);
 		Assert.Equal("Name should be less or equal 255 characters long", exception.Message);
+	}
+
+	[Fact(DisplayName = nameof(UpdateErrorWhenDescriptionIsGreaterThan10_000Characters))]
+	[Trait("Domain", "Category - Aggregates")]
+	public void UpdateErrorWhenDescriptionIsGreaterThan10_000Characters()
+	{
+		var category = new DomainEntity.Category("Category Name", "Category Description");
+		var invalidDescription = String.Join(null, Enumerable.Range(1, 10001).Select(_ => "a").ToArray());
+		Action action = () => category.Update("Category New Name", invalidDescription);
+		var exception = Assert.Throws<EntityValidationException>(action);
+		Assert.Equal("Description should be less or equal 10.000 characters long", exception.Message);
 	}
 }
