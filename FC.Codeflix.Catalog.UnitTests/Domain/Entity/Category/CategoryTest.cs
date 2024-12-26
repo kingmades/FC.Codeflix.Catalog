@@ -1,4 +1,5 @@
 ﻿using FC.Codeflix.Catalog.Domain.Exceptions;
+using System.Xml.Linq;
 using DomainEntity = FC.Codeflix.Catalog.Domain.Entity;
 
 namespace FC.Codeflix.Catalog.UnitTests.Domain.Entity.Category;
@@ -182,5 +183,19 @@ public class CategoryTest
 		Action action = () => category.Update(name!);
 		var exception = Assert.Throws<EntityValidationException>(action);
 		Assert.Equal("Name should not be empty or null", exception.Message);
+	}
+
+	[Theory(DisplayName = nameof(UpdateErrorWhenNameIsLessThan3Characters))]
+	[Trait("Domain", "Category - Aggregates")]
+	[InlineData("1")]
+	[InlineData("12")]
+	[InlineData("a")]
+	[InlineData("ca")]
+	public void UpdateErrorWhenNameIsLessThan3Characters(string invalidName)
+	{
+		var category = new DomainEntity.Category("Category Name", "Category Description");
+		Action action = () => category.Update(invalidName);
+		var exception = Assert.Throws<EntityValidationException>(action);
+		Assert.Equal("Name should be at least 3 characters long", exception.Message);
 	}
 }
