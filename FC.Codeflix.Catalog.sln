@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{287BDDF9-2827-48A3-AAA7-9A1187BCBDB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{929F20D0-7F45-47EE-A43E-5C573B3A8063}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Codeflix.Catalog.UnitTests", "FC.Codeflix.Catalog.UnitTests\FC.Codeflix.Catalog.UnitTests.csproj", "{B1B4E0D6-F6A9-43A1-B70C-8DF5E130ACB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1B4E0D6-F6A9-43A1-B70C-8DF5E130ACB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1B4E0D6-F6A9-43A1-B70C-8DF5E130ACB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1B4E0D6-F6A9-43A1-B70C-8DF5E130ACB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1B4E0D6-F6A9-43A1-B70C-8DF5E130ACB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1B4E0D6-F6A9-43A1-B70C-8DF5E130ACB3} = {929F20D0-7F45-47EE-A43E-5C573B3A8063}
+	EndGlobalSection
+EndGlobal
