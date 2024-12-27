@@ -46,4 +46,16 @@ public class DomainValidationTest
 			.Throw<EntityValidationException>()
 			.WithMessage($"{fieldName} should not be null or empty");
 	}
+
+	[Fact(DisplayName = nameof(NotNullOrEmptyOk))]
+	[Trait("Domain", "DomainValidation - Validation")]
+	public void NotNullOrEmptyOk()
+	{
+		string target = Faker.Commerce.ProductName();
+		string fieldName = Faker.Commerce.ProductName();
+
+		Action action = 
+			() => DomainValidation.NotNullOrEmpty(target, fieldName);
+		action.Should().NotThrow();
+	}
 }
