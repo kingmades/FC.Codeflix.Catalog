@@ -120,7 +120,7 @@ public class CategoryTest
 	public void InstantiateErrorWhenNameIsGreaterThan255Characters()
 	{
 		var validCategory = _categoryTestFixture.GetValidCategory();
-		var invalidName = _categoryTestFixture.Faker.Lorem.Letter(256);
+		var invalidName = _categoryTestFixture.Faker.Lorem.Sentences(100);
 		Action action = () => new DomainEntity.Category(invalidName, validCategory.Description);
 		action.Should()
 			.Throw<EntityValidationException>()
@@ -132,9 +132,7 @@ public class CategoryTest
 	public void InstantiateErrorWhenDescriptionIsGreaterThan10_000Characters()
 	{
 		var validCategory = _categoryTestFixture.GetValidCategory();
-		var invalidDescription = _categoryTestFixture.Faker.Commerce.ProductDescription();
-		while (invalidDescription.Length <= 10_000) invalidDescription = 
-				$"{invalidDescription} {_categoryTestFixture.Faker.Commerce.ProductDescription()}";
+		var invalidDescription = _categoryTestFixture.Faker.Lorem.Sentences(5000);
 		Action action = () => new DomainEntity.Category(validCategory.Name, invalidDescription);
 		action.Should()
 			.Throw<EntityValidationException>()
@@ -234,7 +232,7 @@ public class CategoryTest
 	public void UpdateErrorWhenNameIsGreaterThan255Characters()
 	{
 		var validCategory = _categoryTestFixture.GetValidCategory();
-		var invalidName = String.Join(null, Enumerable.Range(1, 256).Select(_ => "a").ToArray());
+		var invalidName = _categoryTestFixture.Faker.Lorem.Sentences(200);
 		Action action = () => validCategory.Update(invalidName);
 		action.Should()
 			.Throw<EntityValidationException>()
@@ -246,9 +244,7 @@ public class CategoryTest
 	public void UpdateErrorWhenDescriptionIsGreaterThan10_000Characters()
 	{
 		var validCategory = _categoryTestFixture.GetValidCategory();
-		var invalidDescription = _categoryTestFixture.Faker.Commerce.ProductDescription();
-		while (invalidDescription.Length <= 10_000) invalidDescription =
-				$"{invalidDescription} {_categoryTestFixture.Faker.Commerce.ProductDescription()}";
+		var invalidDescription = _categoryTestFixture.Faker.Lorem.Sentences(5000);
 		Action action = () => validCategory.Update(validCategory.Name, invalidDescription);
 		action.Should()
 			.Throw<EntityValidationException>()
