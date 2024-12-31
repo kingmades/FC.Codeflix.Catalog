@@ -43,7 +43,7 @@ public class CreateCategoryTest
 		output.Name.Should().Be("Category Name");
 		output.Description.Should().Be("Category Description");
 		output.IsActive.Should().BeTrue();
-		(output.Id != null && output.Id != Guid.Empty).Should().BeTrue();
-		(output.CreatedAt != null && output.CreatedAt != default(DateTime)).Should().BeTrue();
+		(output.Id != Guid.Empty).Should().BeTrue();
+		(output.CreatedAt != default(DateTime)).Should().BeTrue();
 	}
 }
