@@ -1,29 +1,31 @@
-﻿using FC.Codeflix.Catalog.Application.Interfaces;
-using FC.Codeflix.Catalog.Domain.Entity;
-using FC.Codeflix.Catalog.Domain.Repository;
+﻿using FC.Codeflix.Catalog.Domain.Entity;
 using FluentAssertions;
 using Moq;
 using UseCases = FC.Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
 
 namespace FC.Codeflix.Catalog.UnitTests.Application.CreateCategory;
 
+[Collection(nameof(CreateCategoryTestFixture))]
 public class CreateCategoryTest
 {
+	private readonly CreateCategoryTestFixture _fixture;
+
+	public CreateCategoryTest(CreateCategoryTestFixture fixture)
+		=> _fixture = fixture;
+	
+
 	[Fact(DisplayName = nameof(CreateCategoryWithCorrectValues))]
 	[Trait("Application", "CreateCategory - Use Cases")]
-	public async void CreateCategoryWithCorrectValues()
+	public async Task CreateCategoryWithCorrectValues()
 	{
-		var repositoryMock = new Mock<ICategoryRepository>();
-		var unitOfWorkMock = new Mock<IUnitOfWork>();
+		var repositoryMock = _fixture.GetCategoryRepositoryMock();
+		var unitOfWorkMock = _fixture.GetUnitOfWorkMock();
+
 		var useCase = new UseCases.CreateCategory(
 			repositoryMock.Object, 
 			unitOfWorkMock.Object
 		);
-		var input = new UseCases.CreateCategoryInput(
-			"Category Name", 
-			"Category Description",
-			true
-		);
+		var input = _fixture.GetValidInput();
 
 		var output = await useCase.Handle(input, CancellationToken.None);
 
@@ -40,10 +42,10 @@ public class CreateCategoryTest
 		);
 
 		output.Should().NotBeNull();
-		output.Name.Should().Be("Category Name");
-		output.Description.Should().Be("Category Description");
-		output.IsActive.Should().BeTrue();
-		(output.Id != Guid.Empty).Should().BeTrue();
-		(output.CreatedAt != default(DateTime)).Should().BeTrue();
+		output.Name.Should().Be(input.Name);
+		output.Description.Should().Be(input.Description);
+		output.IsActive.Should().Be(input.IsActive);
+		output.Id.Should().NotBeEmpty();
+		output.CreatedAt.Should().NotBeSameDateAs(default(DateTime));
 	}
 }
