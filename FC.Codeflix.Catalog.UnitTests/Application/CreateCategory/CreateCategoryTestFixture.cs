@@ -46,5 +46,5 @@ public class CreateCategoryTestFixture : BaseFixture
 		=> new ();
 
 	public Mock<IUnitOfWork> GetUnitOfWorkMock()
-		=> new();
+		=> new ();
 }
